@@ -37,12 +37,12 @@ export default function TechScroller() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[200vh] w-full bg-white flex flex-col items-center justify-center"
+      className="relative w-full bg-white py-12"
     >
-      <h2 className="text-3xl font-semibold mb-8">Technologies I use</h2>
+      <h2 className="container text-3xl font-semibold mb-6">Technologies I use</h2>
 
       {/* Sticky container keeps the row in view while the page scrolls */}
-      <div className="sticky top-24 w-full">
+      <div className="sticky top-0 w-full">
         {/* Fade edges using a mask so logos don’t hard-cut at sides */}
         <div
           className="w-full overflow-hidden"
@@ -58,7 +58,7 @@ export default function TechScroller() {
             className="flex gap-8 items-center select-none"
             aria-label="Technology logos"
           >
-            {LOGOS.concat(LOGOS).map((logo, i) => (
+            {LOGOS.concat(LOGOS).concat(LOGOS).map((logo, i) => (
               <li key={i} className="shrink-0">
                 <img
                   src={logo.src}

@@ -11,7 +11,7 @@ export default function Hero() {
     return (
     
     //<section className="min-h-screen w-full bg-red-500"></section>
-    <section className="min-h-screen w-full flex flex-col justify-center items-center bg-gradient-to-b from-blue-500 to-blue-100 text-center">
+    <section className="min-h-screen w-full flex flex-col justify-center items-center bg-gradient-to-b from-blue-500 to-blue-100 text-center pb-10">
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
