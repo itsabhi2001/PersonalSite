@@ -18,7 +18,7 @@ const LOGOS = [
 export default function TechScroller() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const prefersReduced = useReducedMotion();
-
+ 
   // Map scroll progress through this section to a horizontal shift.
   // offset: ["start end","end start"] means:
   //  - progress=0 when the section top hits the bottom of viewport
@@ -28,18 +28,17 @@ export default function TechScroller() {
     offset: ["start end", "end start"],
   });
 
+   const xMotion = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
   // Move logos from left -> right as you scroll down (and right -> left when scrolling up).
   // Tweak the range to control distance. Use % so it’s responsive.
-  const x = prefersReduced
-    ? 0
-    : useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+  const x = prefersReduced ? undefined : xMotion;
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full bg-white py-12"
     >
-      <h2 className="container text-3xl font-semibold mb-6">Technologies I use</h2>
+      <h2 className="text-3xl font-semibold mb-8 text-center">Software Developement</h2>
 
       {/* Sticky container keeps the row in view while the page scrolls */}
       <div className="sticky top-0 w-full">
@@ -73,7 +72,7 @@ export default function TechScroller() {
       </div>
 
       {/* Spacer to give the section some scroll room (so the animation is noticeable) */}
-      <div className="h-[40vh]" />
+      <div className="h-8" />
     </section>
   );
 }
