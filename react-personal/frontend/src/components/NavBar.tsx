@@ -1,12 +1,15 @@
 import { useMemo, useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import WeatherWidget from "../sections/Weather";
+
 
 const LINKS = [
   { id: "hero", label: "Home" },
   { id: "software", label: "Software Dev" },
   { id: "engineering", label: "Engineering" },
   { id: "dogsitting", label: "Dogsitting" },
+  { id: "weather", label: "Weather" },
 ];
 
 export default function NavBar() {
@@ -21,21 +24,61 @@ export default function NavBar() {
   const loc = useLocation();
 
   // Scroll-spy with IntersectionObserver
-  const [active, setActive] = useState(LINKS[0].id);
-  useEffect(() => {
-    if (loc.pathname !== "/") return; // only on SPA home
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => e.isIntersecting && setActive(e.target.id));
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
-    );
-    LINKS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
-  }, [loc.pathname]);
+  // state
+const [active, setActive] = useState(LINKS[0].id);
+
+// effect
+useEffect(() => {
+  if (loc.pathname !== "/") return;
+
+  const ids = LINKS.map(l => l.id);
+  const observeEls = ids
+    .map(id => document.getElementById(id))
+    .filter((el): el is HTMLElement => !!el);
+
+  // Fallback: if a section is missing, avoid errors
+  if (observeEls.length === 0) return;
+
+  let ticking = false;
+  const TOP_ANCHOR = window.innerHeight * 0.33; // top third
+
+  const calcActive = () => {
+    ticking = false;
+    // choose the section whose top is closest to TOP_ANCHOR but not too far below
+    let bestId = ids[0];
+    let bestDist = Number.POSITIVE_INFINITY;
+
+    for (const el of observeEls) {
+      const rect = el.getBoundingClientRect();
+      const dist = Math.abs(rect.top - TOP_ANCHOR);
+      // prefer elements that are on screen (some part visible)
+      const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (visible && dist < bestDist) {
+        bestDist = dist;
+        bestId = el.id;
+      }
+    }
+    setActive(bestId);
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(calcActive);
+    }
+  };
+
+  // Initial run + listeners
+  calcActive();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", calcActive);
+
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", calcActive);
+  };
+}, [loc.pathname]);
+
 
   // Smooth scroll handler (navigates to home first if on /contact)
   const scrollTo = (id: string) => (e: React.MouseEvent) => {
@@ -58,47 +101,65 @@ export default function NavBar() {
     <nav className="sticky top-0 z-40 border-b border-black/5 bg-white/80 backdrop-blur dark:bg-neutral-950/70">
       <div className="container flex h-14 items-center justify-between">
         {/* Brand */}
-        <a href="/" onClick={(e)=>{e.preventDefault(); navigate("/");}}
-           className="font-semibold text-lg tracking-tight">AV</a>
+        <a
+          href="/"
+          className="inline-flex items-center gap-2"
+          aria-label="Home"
+        >
+          {/* Light logo */}
+          <img
+            src="\logo\av_monogram_badge_light_bold.svg"
+            alt="Abhimanyu Verma Logo"
+            className="h-10 w-auto dark:hidden select-none"
+            draggable={false}
+          />
+          {/* Dark logo */}
+          <img
+            src="\logo\av_monogram_badge_dark_bold.svg"
+            alt="Abhimanyu Verma Logo (dark)"
+            className="hidden dark:block h-10 w-auto select-none"
+            draggable={false}
+          />
+        </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-4 text-sm">
-          {LINKS.map((l) => {
-            const isActive = loc.pathname === "/" && active === l.id;
-            return (
-              <a
-                key={l.id}
-                href={`/#${l.id}`}
-                onClick={scrollTo(l.id)}
-                className={`relative px-2 py-1 rounded-md hover:bg-black/5 dark:hover:bg-white/5 ${
-                  isActive
-                    ? "text-brand-700 dark:text-brand-100"
-                    : "text-neutral-700 dark:text-neutral-200"
-                }`}
-              >
-                {l.label}
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute left-2 right-2 -bottom-1 h-0.5 bg-brand-600 rounded"
-                  />
-                )}
-              </a>
-            );
-          })}
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `px-2 py-1 rounded-md hover:bg-black/5 dark:hover:bg-white/5 ${
-                isActive
-                  ? "text-brand-700 dark:text-brand-100"
-                  : "text-neutral-700 dark:text-neutral-200"
-              }`
-            }
-          >
-            Contact
-          </NavLink>
-        </div>
+        <div className="hidden md:flex items-center gap-2 text-sm">
+  {LINKS.map(l => {
+    const isActive = loc.pathname === "/" && active === l.id;
+    return (
+      <a
+        key={l.id}
+        href={`/#${l.id}`}
+        onClick={scrollTo(l.id)}
+        className={`relative px-3 py-1.5 rounded-full transition
+          ${isActive
+            ? "bg-sky-600 text-white shadow-sm"
+            : "text-neutral-700 hover:bg-black/5 dark:text-neutral-200 dark:hover:bg-white/5"}`}
+      >
+        {l.label}
+
+        {/* underline accent for active */}
+        {isActive && (
+          <span className="pointer-events-none absolute left-3 right-3 -bottom-1 block h-0.5 rounded bg-white/80" />
+        )}
+      </a>
+    );
+  })}
+  <WeatherWidget/>
+
+  <NavLink
+  to="/contact"
+  className={({ isActive }) =>
+    `px-3 py-1.5 rounded-full font-medium transition ${
+      isActive
+  ? "bg-orange-500 text-white shadow-md shadow-orange-500/30 dark:bg-orange-600"
+  : "text-orange-600 hover:bg-orange-500/10 dark:text-orange-400 dark:hover:bg-orange-600/20"
+    }`
+  }
+>
+  Contact
+</NavLink>
+</div>
 
         {/* Mobile burger */}
         <button
@@ -121,12 +182,15 @@ export default function NavBar() {
             className="md:hidden border-t border-black/5"
           >
             <ul className="container py-2 space-y-1">
-              {LINKS.map((l, i) => (
+              {LINKS.map((l) => (
                 <li key={l.id}>
                   <a
                     href={`/#${l.id}`}
                     onClick={scrollTo(l.id)}
-                    className="block rounded-md px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/5 text-neutral-700 dark:text-neutral-200"
+                    className={`block rounded-md px-3 py-2 text-sm transition
+                      ${active === l.id && loc.pathname === "/"
+                        ? "bg-sky-600/10 text-sky-700 dark:text-sky-300"
+                        : "hover:bg-black/5 dark:hover:bg-white/5"}`}
                   >
                     {l.label}
                   </a>
@@ -136,7 +200,9 @@ export default function NavBar() {
                 <NavLink
                   to="/contact"
                   onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/5 text-neutral-700 dark:text-neutral-200"
+                  className="block rounded-md px-3 py-2 text-sm transition
+                            bg-orange-500/10 text-orange-700 hover:bg-orange-500/20
+                            dark:text-orange-300 dark:hover:bg-orange-600/20"
                 >
                   Contact
                 </NavLink>

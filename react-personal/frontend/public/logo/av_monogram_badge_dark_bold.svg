@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AV monogram badge bold, dark">
+  <defs>
+    <style>
+      .bg { fill: #0F0F10; }
+      .fg { fill: #FFFFFF; }
+    </style>
+  </defs>
+  <!-- Circular badge -->
+  <circle class="bg" cx="256" cy="256" r="240"/>
+  <!-- Enlarged and thicker AV monogram -->
+  <g class="fg" transform="translate(256,256) scale(1.2) translate(-256,-256)">
+    <!-- A -->
+    <path d="M140 380 L224 100 L308 380 L270 380 L247 300 L201 300 L178 380 Z M210 260 L238 260 L224 210 Z"/>
+    <!-- V -->
+    <path d="M320 100 L236 380 L274 380 L358 100 Z"/>
+  </g>
+</svg>

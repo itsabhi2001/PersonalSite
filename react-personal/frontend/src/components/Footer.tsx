@@ -1,3 +1,5 @@
+import ThemeToggle from "./ThemeToggle";
+
 export default function Footer() {
   return (
     <footer className="border-t border-black/5 bg-white/80 backdrop-blur dark:bg-neutral-950/70">
@@ -6,13 +8,13 @@ export default function Footer() {
 
         <div className="flex items-center gap-4">
           <a
-            href="mailto:abhimanyu@example.com"
+            href="mailto:abhimanyuverma2001@gmail.com"
             className="hover:text-brand-600 transition-colors"
           >
             Email
           </a>
           <a
-            href="https://www.linkedin.com/in/abhimanyuverma/"
+            href="https://www.linkedin.com/in/abhimanyuvermadev/"
             target="_blank"
             rel="noreferrer"
             className="hover:text-brand-600 transition-colors"
@@ -20,13 +22,14 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            href="https://github.com/abhimanyu-verma"
+            href="https://github.com/itsabhi2001"
             target="_blank"
             rel="noreferrer"
             className="hover:text-brand-600 transition-colors"
           >
             GitHub
           </a>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

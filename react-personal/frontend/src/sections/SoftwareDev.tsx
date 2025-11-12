@@ -1,9 +1,10 @@
 import TechScroller from "../components/TechScroller";
 import { motion } from "framer-motion";
 
+
 export default function SoftwareDev() {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full">
       <div className="container py-12">
         <motion.h2
           initial={{ opacity: 0, y: 8 }}
@@ -53,9 +54,9 @@ export default function SoftwareDev() {
           {/* Debt Relief App */}
           <ProjectCard
             title="Debt Relief Application (Showcase Winner)"
-            description="Full-stack platform (Angular + Spring Boot) with enrollment flows, payments, and AWS EC2/Docker deployment."
+            description="Full-stack platform (Angular + Spring Boot) with login/registration, a full dashboard, and AWS EC2/Docker deployment."
             tags={["Angular", "Spring Boot", "AWS EC2", "Docker"]}
-            href="#"
+            href="https://github.com/itsabhi2001/capstone-ui"
             imageUrl="/projects/debt-relief.jpg"
           />
 
@@ -80,24 +81,17 @@ export default function SoftwareDev() {
       </div>
 
       {/* Experience highlights */}
-      <div className="container py-12">
-        <h3 className="text-xl font-semibold">Experience Highlights</h3>
-        <ul className="mt-4 space-y-3 text-sm text-neutral-700">
-          <li className="rounded-lg border border-black/10 p-4">
-            <span className="font-medium">Marsh McLennan — Software Developer Intern.</span>{" "}
-            Built Angular UI features and metrics dashboards; collaborated across teams and
-            supported CI/CD practices.
-          </li>
-          <li className="rounded-lg border border-black/10 p-4">
-            <span className="font-medium">RYNO Strategic Solutions — Web Developer Intern.</span>{" "}
-            Contributed to web experiences with a focus on SEO and performance; exposure to
-            Cloudflare and modern web tooling.
-          </li>
-          <li className="rounded-lg border border-black/10 p-4">
-            <span className="font-medium">Certifications.</span> AWS Certified Cloud Practitioner; strong
-            foundation in Python ML libs (Pandas, scikit-learn, PyTorch).
-          </li>
-        </ul>
+      <div className="w-full flex justify-center py-8">
+        <a
+          href="/resume.pdf"
+          download="Abhimanyu-Verma-Resume.pdf"
+          className="inline-flex items-center gap-2 rounded-xl border border-orange-500 bg-orange-500 px-5 py-3 text-white font-medium shadow-sm hover:bg-orange-600 dark:border-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 transition">
+          Download my Resume 
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5v-9m0 9l3.5-3.5M12 16.5l-3.5-3.5M4.5 19.5h15" />
+          </svg>
+        </a>
       </div>
     </section>
   );

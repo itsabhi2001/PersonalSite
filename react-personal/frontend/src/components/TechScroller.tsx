@@ -2,15 +2,15 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const LOGOS = [
-    { src: "/tech/react.svg", alt: "React" },
-    { src: "/tech/typescript.svg", alt: "TypeScript" },
-    { src: "/tech/tailwind.svg", alt: "Tailwind CSS" },
-    { src: "/tech/java.svg", alt: "Java" },
-    { src: "/tech/spring.svg", alt: "Spring Boot" },
-    { src: "/tech/aws.svg", alt: "AWS" },
-    { src: "/tech/docker.svg", alt: "Docker" },
-    { src: "/tech/mysql.svg", alt: "MySQL" },
-    { src: "/tech/git.svg", alt: "Git" },
+    { srcLight: "/tech/react.svg", alt: "React" },
+    { srcLight: "/tech/typescript.svg", alt: "TypeScript" },
+    { srcLight: "/tech/tailwind.svg", alt: "Tailwind CSS" },
+    { srcLight: "/tech/java.svg", alt: "Java" },
+    { srcLight: "/tech/spring.svg", alt: "Spring Boot" },
+    { srcLight: "/tech/aws.svg", srcDark: "/tech/aws-light.svg", alt: "AWS" },
+    { srcLight: "/tech/docker.svg", alt: "Docker" },
+    { srcLight: "/tech/mysql.svg", alt: "MySQL" },
+    { srcLight: "/tech/git.svg", alt: "Git" },
 ];
 
 
@@ -28,7 +28,7 @@ export default function TechScroller() {
     offset: ["start end", "end start"],
   });
 
-   const xMotion = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+   const xMotion = useTransform(scrollYProgress, [0, 1], ["-100%", "20%"]);
   // Move logos from left -> right as you scroll down (and right -> left when scrolling up).
   // Tweak the range to control distance. Use % so it’s responsive.
   const x = prefersReduced ? undefined : xMotion;
@@ -36,9 +36,7 @@ export default function TechScroller() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-white py-12"
-    >
-      <h2 className="text-3xl font-semibold mb-8 text-center">Software Developement</h2>
+      className="relative w-full py-12">
 
       {/* Sticky container keeps the row in view while the page scrolls */}
       <div className="sticky top-0 w-full">
@@ -59,10 +57,18 @@ export default function TechScroller() {
           >
             {LOGOS.concat(LOGOS).concat(LOGOS).map((logo, i) => (
               <li key={i} className="shrink-0">
+                {/* Light-mode logo */}
                 <img
-                  src={logo.src}
+                  src={logo.srcLight}
                   alt={logo.alt}
-                  className="h-16 w-auto object-contain opacity-90 hover:opacity-100 transition"
+                  className="h-16 w-auto object-contain opacity-90 hover:opacity-100 transition dark:hidden"
+                  draggable={false}
+                />
+                {/* Dark-mode logo */}
+                <img
+                  src={logo.srcDark ?? logo.srcLight}
+                  alt={logo.alt}
+                  className="hidden dark:block h-16 w-auto object-contain opacity-90 hover:opacity-100 transition"
                   draggable={false}
                 />
               </li>
