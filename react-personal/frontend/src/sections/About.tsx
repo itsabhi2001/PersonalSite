@@ -15,7 +15,7 @@ export default function About() {
           {/* Social Icons */}
           <div className="flex gap-4 mt-4">
             <a
-              href="https://www.linkedin.com/in/abhimanyu-verma"
+              href="https://www.linkedin.com/in/abhimanyuvermadev"
               target="_blank"
               rel="noreferrer"
             >
@@ -25,7 +25,7 @@ export default function About() {
                 className="w-6 h-6 invert hover:opacity-80 transition"
               />
             </a>
-            <a href="mailto:abhimanyu@example.com">
+            <a href="mailto:abhimanyuverma2001@gmail.com">
               <img
                 src="/tech/mail.svg"
                 alt="Email"
@@ -33,7 +33,7 @@ export default function About() {
               />
             </a>
             <a
-              href="https://github.com/AbhimanyuVerma"
+              href="https://github.com/itsabhi2001"
               target="_blank"
               rel="noreferrer"
             >
