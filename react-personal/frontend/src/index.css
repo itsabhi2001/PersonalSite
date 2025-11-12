@@ -4,7 +4,7 @@
 
 
 @layer base {
-  html, body, #root { height: 100%; }
+  html, body, #root { overscroll-behavior: none; height: 100%; }
   #root { width: 100%;}
   body { margin: 0; background: transparent;}
 }

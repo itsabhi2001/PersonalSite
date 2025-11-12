@@ -7,7 +7,7 @@ import About from "./sections/About";
 import SoftwareDev from "./sections/SoftwareDev";
 import Engineering from "./sections/Engineering";
 import Dogsitting from "./sections/Dogsitting";
-import Contact from "./pages/Contact";
+import Contact from "./pages/ContactForm/Contact";
 
 function Home() {
   return (
@@ -16,7 +16,7 @@ function Home() {
       <section id="hero" className="scroll-mt-20">
         <Hero />
       </section>
-      
+
       <div className="h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
       <section id="about" className="scroll-mt-20">
         <About />
@@ -46,15 +46,12 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-dvh flex flex-col bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white">
+    <div className="min-h-screen bg-slate-50 bg-blue-grad dark:bg-ink dark:bg-none text-slate-900 dark:text-slate-100">
       <NavBar />
-
-      {/* Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-
       <Footer />
     </div>
   );

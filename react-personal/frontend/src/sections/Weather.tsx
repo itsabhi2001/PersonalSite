@@ -28,6 +28,7 @@ export default function WeatherWidget() {
           city: data.name,
         });
       } catch (err) {
+        console.log(err)
         setError("Weather unavailable");
       }
     };

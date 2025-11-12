@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import WeatherWidget from "../sections/Weather";
 
 
+
 const LINKS = [
   { id: "hero", label: "Home" },
   { id: "software", label: "Software Dev" },
   { id: "engineering", label: "Engineering" },
   { id: "dogsitting", label: "Dogsitting" },
-  { id: "weather", label: "Weather" },
 ];
 
 export default function NavBar() {

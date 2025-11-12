@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abhimanyu Verma — Portfolio</title>
   </head>
-  <body>
+  <body class="min-h-dvh bg-slate-50 dark:bg-ink transition-colors">
     <div id="root"></div>
    <script>
-  (function () {
-    const key = 'theme';
-    const stored = localStorage.getItem(key); // 'dark' | 'light' | null
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const wantDark = stored ? stored === 'dark' : systemDark;
-    document.documentElement.classList.toggle('dark', wantDark);
-  }());
-</script>
-
+      (function () {
+        const key = 'theme';
+        const stored = localStorage.getItem(key); // 'dark' | 'light' | null
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const wantDark = stored ? stored === 'dark' : systemDark;
+        document.documentElement.classList.toggle('dark', wantDark);
+      }());
+    </script>
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const dark = stored ? stored === "dark" : prefers;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
