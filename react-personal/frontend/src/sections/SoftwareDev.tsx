@@ -56,7 +56,7 @@ export default function SoftwareDev() {
             title="Debt Relief Application (Showcase Winner)"
             description="Full-stack platform (Angular + Spring Boot) with login/registration, a full dashboard, and AWS EC2/Docker deployment."
             tags={["Angular", "Spring Boot", "AWS EC2", "Docker"]}
-            href="https://github.com/itsabhi2001/capstone-ui"
+            href="https://github.com/itsabhi2001/capstone-ui-clone"
             imageUrl="/projects/PlaceholderImage.png"
           />
 
