@@ -1,7 +1,7 @@
 // src/sections/Engineering.tsx
 const engCards = [
   { title: "Additive Manufacturing", desc: "Prototyping, tuning, materials, CAD modeling", img: "/page-img/3dPrinting.png" },
-  { title: "Automotive Engineering", desc: "Repair, maintain, and upgrade automobiles. I also have a facination in the physics and engineering of race cars.", img: "/page-img/AutomotiveEng.jpg" },
+  { title: "Automotive Engineering", desc: "Repair, maintain, and upgrade automobiles. I also have a fascination in the physics and engineering of race cars.", img: "/page-img/AutomotiveEng.jpg" },
   { title: "Computer Hardware", desc: "PC building, component selection, thermals, reliability.", img: "/page-img/PCBuilding.png" },
 ];
 
